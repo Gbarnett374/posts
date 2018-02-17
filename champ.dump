@@ -1,0 +1,174 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: gregbarnett
+--
+
+CREATE TABLE ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE ar_internal_metadata OWNER TO gregbarnett;
+
+--
+-- Name: posts; Type: TABLE; Schema: public; Owner: gregbarnett
+--
+
+CREATE TABLE posts (
+    id bigint NOT NULL,
+    title character varying,
+    body text,
+    published boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    factorial integer
+);
+
+
+ALTER TABLE posts OWNER TO gregbarnett;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE; Schema: public; Owner: gregbarnett
+--
+
+CREATE SEQUENCE posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE posts_id_seq OWNER TO gregbarnett;
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gregbarnett
+--
+
+ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: gregbarnett
+--
+
+CREATE TABLE schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE schema_migrations OWNER TO gregbarnett;
+
+--
+-- Name: posts id; Type: DEFAULT; Schema: public; Owner: gregbarnett
+--
+
+ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: gregbarnett
+--
+
+COPY ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+environment	development	2018-01-12 15:16:40.561813	2018-01-12 15:16:40.561813
+\.
+
+
+--
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: gregbarnett
+--
+
+COPY posts (id, title, body, published, created_at, updated_at, factorial) FROM stdin;
+4	Good Morning!!!	This is the 4th post.	t	2018-01-12 15:27:38.20101	2018-01-15 13:26:58.390261	2
+5	Howdy!!	My 5th post!	t	2018-01-12 15:28:48.965697	2018-01-15 00:01:19.699473	6
+3	Hello!!	This is my 3rd post!!!!!!!!!	t	2018-01-12 15:26:59.778444	2018-01-15 13:36:54.317756	24
+37	Hello Again	Test 123 	t	2018-01-15 13:51:15.714389	2018-01-15 13:51:18.424488	362880
+1	Hello World!	This is my 1st post!	t	2018-01-12 15:26:11.871352	2018-01-15 13:26:26.803015	1
+2	Hello again!!	This is my 2nd post!	t	2018-01-12 15:26:30.996155	2018-01-14 15:07:04.536126	1
+\.
+
+
+--
+-- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gregbarnett
+--
+
+SELECT pg_catalog.setval('posts_id_seq', 37, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: gregbarnett
+--
+
+COPY schema_migrations (version) FROM stdin;
+20170501195702
+20180112194658
+\.
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: gregbarnett
+--
+
+ALTER TABLE ONLY ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: gregbarnett
+--
+
+ALTER TABLE ONLY posts
+    ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: gregbarnett
+--
+
+ALTER TABLE ONLY schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
