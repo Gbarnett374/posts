@@ -5,6 +5,8 @@ The gem webpacker is used to integrate Webpack & React into Rails. Scaffold was 
 
 For fun when creating or updating a post, a factorial for a number between 1 & 10 will randomly be generated. 
 
+The JavaScript code is located in `app/javascript/posts` not in the assets directory. 
+
 Please make sure you have Postgres installed before following these steps.
 
 To setup run:
